@@ -28,7 +28,7 @@ const CameraScreen: React.FC = () => {
         stream.getTracks().forEach(track => track.stop());
       }
     };
-  }, [stream]);
+  }, []);
 
   const handleTakePicture = () => {
     if (videoRef.current) {

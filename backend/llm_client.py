@@ -1,14 +1,15 @@
 import openai
-import os
+from settings import settings
 
-# It's recommended to set these as environment variables
-# For LocalAI, the API key can be any string.
-LOCALAI_API_KEY = os.getenv("LOCALAI_API_KEY", "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-LOCALAI_BASE_URL = os.getenv("LOCALAI_BASE_URL", "http://localhost:8080/v1")
+# Configure the OpenAI client based on settings
+if settings.llm_provider == "openrouter":
+    base_url = "https://openrouter.ai/api/v1"
+else: # localai or openai
+    base_url = settings.llm_base_url
 
 client = openai.OpenAI(
-    api_key=LOCALAI_API_KEY,
-    base_url=LOCALAI_BASE_URL,
+    api_key=settings.llm_api_key,
+    base_url=base_url,
 )
 
 def read_flavors() -> list[str]:
@@ -34,27 +35,22 @@ mood: {mood},
 image lightness: {image_analysis.get('lightness', 'unknown')},
 dominant colors: {image_analysis.get('dominant_colors', 'unknown')},
 
-Generate them a popcorn flavor (a combination of seasonings) and an accompanying short description with a witty and whimsical tone.
+Generate them a popcorn flavor (a combination of seasonings) with an accompanying short description with a witty and whimsical tone.
 
 These are the list of flavors available: {', '.join(flavors)}
 """
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4",  # Replace with your LocalAI model name
+            model=settings.llm_model,
             messages=[
                 {"role": "system", "content": "You are a whimsical popcorn flavor generator."},
                 {"role": "user", "content": prompt},
             ],
             temperature=0.8,
         )
-        suggestion = response.choices[0].message.content
-        # A simple way to parse the output, you might need to adjust this
-        parts = suggestion.split("\n\n")
-        flavor = parts[0].replace("Flavor:", "").strip()
-        description = parts[1].replace("Description:", "").strip() if len(parts) > 1 else ""
-
-        return {"flavor": flavor, "description": description}
+        flavor_suggestion = response.choices[0].message.content
+        return {"flavor": flavor_suggestion}
 
     except Exception as e:
         return {"error": str(e)}

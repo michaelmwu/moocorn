@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_MOOCORN_API_URL || 'http://localhost:8888';
 
 export const generatePopcorn = async (name: string, mood: string, image: File) => {
   const formData = new FormData();

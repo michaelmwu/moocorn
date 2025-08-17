@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "${MOOCORN_BACKEND_PORT:-8888}:8000"
+    volumes:
+      - ./backend/data:/app/data
+    environment:
+      - LLM_BASE_URL=${DOCKER_LLM_BASE_URL:-http://host.docker.internal:11434/v1}
+      - LLM_API_KEY=${LLM_API_KEY}
+      - LLM_MODEL=${LLM_MODEL:-phi}
+    develop:
+      watch:
+        - action: sync
+          path: ./backend
+          target: /app
+          ignore:
+            - __pycache__/
+            - .pytest_cache/
+            - data/images/
+        - action: rebuild
+          path: ./backend/pyproject.toml
+        - action: rebuild
+          path: ./backend/Dockerfile
+        - action: rebuild
+          path: ./docker-compose.yml

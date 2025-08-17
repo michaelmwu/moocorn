@@ -16,7 +16,6 @@ const ResultScreen: React.FC = () => {
       {result ? (
         <>
           <h2>Flavor: {result.flavor}</h2>
-          <p>Description: {result.description}</p>
         </>
       ) : (
         <p>No result found.</p>

@@ -14,7 +14,7 @@ const WelcomeScreen: React.FC = () => {
   return (
     <div className="screen-container">
       <h1>Welcome to Moocorn</h1>
-      <p>The intelligent popcorn machine that creates flavors based on your mood and photo.</p>
+      <p>The intelligent popcorn machine that creates flavors based on your mood.</p>
       <input
         type="text"
         placeholder="Enter your name"

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const ResultScreen: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { result } = location.state || {};
+
+  useEffect(() => {
+    if (!result) {
+      navigate('/', { replace: true });
+    }
+  }, [result, navigate]);
 
   const handleStartOver = () => {
     navigate('/');
@@ -15,14 +21,9 @@ const ResultScreen: React.FC = () => {
       <h1>🍿 Your Perfect Flavor!</h1>
       {result ? (
         <div className="result-content">
-          <div className="flavor-name">
+          <div className="flavor-text">
             {result.flavor}
           </div>
-          {result.description && (
-            <div className="flavor-description">
-              {result.description}
-            </div>
-          )}
           <p style={{ fontSize: '0.9rem', opacity: 0.7, marginTop: '1.5rem' }}>
             ⚡ Generated in {result.duration?.toFixed(2) || '?'} seconds
           </p>

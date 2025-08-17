@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const MoodScreen: React.FC = () => {
@@ -6,6 +6,12 @@ const MoodScreen: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const name = location.state?.name || '';
+
+  useEffect(() => {
+    if (!name) {
+      navigate('/', { replace: true });
+    }
+  }, [name, navigate]);
 
   const handleNext = () => {
     if (mood.trim() !== '') {

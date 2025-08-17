@@ -67,30 +67,38 @@ def read_root():
 async def generate_popcorn(
     name: str = Form(...),
     mood: str = Form(...),
-    image: UploadFile = File(...)
+    image: UploadFile = File(None)
 ):
-    logging.info(f"Received popcorn generation request for name: {name}, mood: {mood}")
+    logging.info(f"Received popcorn generation request for name: {name}, mood: {mood}, has_image: {image is not None}")
     start_time = datetime.datetime.now()
-    image_filename = f"{start_time.strftime('%Y%m%d_%H%M%S')}_{name}.jpg"
-    image_path = f"data/images/{image_filename}"
+    
+    image_filename = None
+    analysis_results = {}
+    
+    if image is not None:
+        # Save the image
+        image_filename = f"{start_time.strftime('%Y%m%d_%H%M%S')}_{name}.jpg"
+        image_path = f"data/images/{image_filename}"
+        
+        try:
+            async with aiofiles.open(image_path, 'wb') as out_file:
+                content = await image.read()
+                await out_file.write(content)
+            logging.info(f"Image saved to {image_path}")
+        except Exception as e:
+            logging.error(f"Error saving image: {e}")
+            raise HTTPException(status_code=500, detail="Error saving image")
 
-    # Save the image
-    try:
-        async with aiofiles.open(image_path, 'wb') as out_file:
-            content = await image.read()
-            await out_file.write(content)
-        logging.info(f"Image saved to {image_path}")
-    except Exception as e:
-        logging.error(f"Error saving image: {e}")
-        raise HTTPException(status_code=500, detail="Error saving image")
-
-    # Analyze the image
-    logging.info(f"Analyzing image: {image_path}")
-    analysis_results = analyze_image(image_path)
-    if analysis_results.get("error"):
-        logging.error(f"Image analysis failed: {analysis_results['error']}")
-        raise HTTPException(status_code=500, detail=f"Image analysis failed: {analysis_results['error']}")
-    logging.info(f"Image analysis successful: {analysis_results}")
+        # Analyze the image
+        logging.info(f"Analyzing image: {image_path}")
+        analysis_results = analyze_image(image_path)
+        if analysis_results.get("error"):
+            logging.error(f"Image analysis failed: {analysis_results['error']}")
+            raise HTTPException(status_code=500, detail=f"Image analysis failed: {analysis_results['error']}")
+        logging.info(f"Image analysis successful: {analysis_results}")
+    else:
+        logging.info("No image provided, proceeding without image analysis")
+        analysis_results = {"lightness": "unknown", "dominant_color_names": ["mysterious"]}
 
     # Generate flavor suggestion
     logging.info("Generating flavor suggestion from LLM.")
@@ -108,7 +116,7 @@ async def generate_popcorn(
     log_session(
         name=name,
         mood=mood,
-        image_filename=image_filename,
+        image_filename=image_filename or "no_image",
         flavor=suggestion.get("flavor", ""),
     )
     logging.info("Session logged to CSV.")
@@ -116,7 +124,6 @@ async def generate_popcorn(
     return {
         "message": "Popcorn generated successfully!",
         "flavor": suggestion.get("flavor"),
-        "description": suggestion.get("description"),
         "image_analysis": analysis_results,
         "duration": duration,
     }

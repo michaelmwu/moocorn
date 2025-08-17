@@ -9,6 +9,13 @@ const CameraScreen: React.FC = () => {
   const [stream, setStream] = useState<MediaStream | null>(null);
 
   useEffect(() => {
+    if (!name || !mood) {
+      navigate('/', { replace: true });
+      return;
+    }
+  }, [name, mood, navigate]);
+
+  useEffect(() => {
     const getCamera = async () => {
       try {
         const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -63,6 +70,10 @@ const CameraScreen: React.FC = () => {
     navigate('/');
   };
 
+  const handleSkipPhoto = () => {
+    navigate('/progress', { state: { name, mood, image: null } });
+  };
+
   return (
     <div className="screen-container">
       <h1>Strike a Pose!</h1>
@@ -81,6 +92,9 @@ const CameraScreen: React.FC = () => {
       <div className="button-group">
         <button className="btn btn-primary" onClick={handleTakePicture}>
           📸 Capture
+        </button>
+        <button className="btn btn-secondary" onClick={handleSkipPhoto}>
+          🕶️ Keep It Mysterious
         </button>
         <button className="btn btn-secondary" onClick={handleCancel}>
           Cancel

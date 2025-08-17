@@ -9,6 +9,13 @@ const ProgressScreen: React.FC = () => {
   const hasCalledRef = useRef(false);
 
   useEffect(() => {
+    if (!name || !mood) {
+      navigate('/', { replace: true });
+      return;
+    }
+  }, [name, mood, navigate]);
+
+  useEffect(() => {
     const getPopcornFlavor = async () => {
       if (hasCalledRef.current) return; // Prevent duplicate calls
       hasCalledRef.current = true;
@@ -18,15 +25,18 @@ const ProgressScreen: React.FC = () => {
         navigate('/result', { state: { result } });
       } catch (error) {
         console.error('Error generating popcorn:', error);
-        // Handle error, maybe navigate to an error screen
-        navigate('/'); // For now, just go back to the start
+        navigate('/error', { state: { error } });
       }
     };
 
-    if (name && mood && image) {
+    if (name && mood) {
       getPopcornFlavor();
     }
   }, [name, mood, image, navigate]);
+
+  const handleCancel = () => {
+    navigate('/');
+  };
 
   return (
     <div className="screen-container">
@@ -36,6 +46,11 @@ const ProgressScreen: React.FC = () => {
       <p style={{ fontSize: '0.9rem', opacity: 0.8, marginTop: '2rem' }}>
         ✨ This may take a few moments
       </p>
+      <div className="button-group">
+        <button className="btn btn-secondary" onClick={handleCancel}>
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

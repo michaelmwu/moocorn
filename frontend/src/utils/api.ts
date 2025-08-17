@@ -1,10 +1,12 @@
 const API_URL = import.meta.env.VITE_MOOCORN_API_URL || 'http://localhost:8888';
 
-export const generatePopcorn = async (name: string, mood: string, image: File) => {
+export const generatePopcorn = async (name: string, mood: string, image: File | null) => {
   const formData = new FormData();
   formData.append('name', name);
   formData.append('mood', mood);
-  formData.append('image', image);
+  if (image) {
+    formData.append('image', image);
+  }
 
   const response = await fetch(`${API_URL}/generate_popcorn`, {
     method: 'POST',

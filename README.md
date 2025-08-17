@@ -86,3 +86,16 @@ pnpm dev
 ```
 
 This will start a development server, and you can access the application at `http://localhost:5173`.
+
+#### Frontend (Electron)
+
+To run the application in an Electron window, navigate to the `frontend` directory and run:
+
+```bash
+pnpm dev:electron
+```
+
+**Note:** If Electron fails to start, you may need to run its installation script manually:
+```bash
+node node_modules/electron/install.js
+```

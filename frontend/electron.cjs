@@ -12,8 +12,10 @@ function createWindow () {
 
   mainWindow.loadURL('http://localhost:5173');
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // Open the DevTools conditionally.
+  if (process.env.ELECTRON_DEVTOOLS === 'true') {
+    mainWindow.webContents.openDevTools();
+  }
 }
 
 app.whenReady().then(() => {

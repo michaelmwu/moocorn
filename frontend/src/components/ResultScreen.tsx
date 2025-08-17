@@ -11,17 +11,32 @@ const ResultScreen: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Your Popcorn Flavor</h1>
+    <div className="screen-container">
+      <h1>🍿 Your Perfect Flavor!</h1>
       {result ? (
-        <>
-          <h2>Flavor: {result.flavor}</h2>
-          <p>Generated Flavor in {result.duration.toFixed(2)} seconds</p>
-        </>
+        <div className="result-content">
+          <div className="flavor-name">
+            {result.flavor}
+          </div>
+          {result.description && (
+            <div className="flavor-description">
+              {result.description}
+            </div>
+          )}
+          <p style={{ fontSize: '0.9rem', opacity: 0.7, marginTop: '1.5rem' }}>
+            ⚡ Generated in {result.duration?.toFixed(2) || '?'} seconds
+          </p>
+        </div>
       ) : (
-        <p>No result found.</p>
+        <div className="result-content">
+          <p>Oops! Something went wrong. No result found.</p>
+        </div>
       )}
-      <button onClick={handleStartOver}>Start Over</button>
+      <div className="button-group">
+        <button className="btn btn-primary" onClick={handleStartOver}>
+          🔄 Create Another
+        </button>
+      </div>
     </div>
   );
 };

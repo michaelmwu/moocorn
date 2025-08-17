@@ -17,17 +17,49 @@ const MoodScreen: React.FC = () => {
     navigate('/');
   };
 
+  const moodOptions = [
+    'Happy', 'Excited', 'Calm', 'Adventurous', 
+    'Nostalgic', 'Creative', 'Energetic', 'Contemplative'
+  ];
+
+  const handleMoodSelect = (selectedMood: string) => {
+    setMood(selectedMood);
+    navigate('/camera', { state: { name, mood: selectedMood } });
+  };
+
   return (
-    <div>
-      <h1>How are you feeling today, {name}?</h1>
+    <div className="screen-container">
+      <h1>How are you feeling, {name}?</h1>
+      <p>Choose a mood or describe your own</p>
+      
+      <div className="mood-buttons">
+        {moodOptions.map((moodOption) => (
+          <button
+            key={moodOption}
+            className="btn btn-mood"
+            onClick={() => handleMoodSelect(moodOption)}
+          >
+            {moodOption}
+          </button>
+        ))}
+      </div>
+
       <input
         type="text"
-        placeholder="Enter your mood"
+        placeholder="Or enter your own mood..."
         value={mood}
         onChange={(e) => setMood(e.target.value)}
+        onKeyPress={(e) => e.key === 'Enter' && handleNext()}
       />
-      <button onClick={handleNext}>Next</button>
-      <button onClick={handleCancel}>Cancel</button>
+      
+      <div className="button-group">
+        <button className="btn btn-primary" onClick={handleNext} disabled={!mood.trim()}>
+          Next
+        </button>
+        <button className="btn btn-secondary" onClick={handleCancel}>
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

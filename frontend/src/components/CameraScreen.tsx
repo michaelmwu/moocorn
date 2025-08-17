@@ -64,11 +64,28 @@ const CameraScreen: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Camera</h1>
-      <video ref={videoRef} autoPlay style={{ width: '100%', height: '400px', backgroundColor: 'black' }} />
-      <button onClick={handleTakePicture}>Take Picture</button>
-      <button onClick={handleCancel}>Cancel</button>
+    <div className="screen-container">
+      <h1>Strike a Pose!</h1>
+      <p>Take a photo that captures your {mood} mood</p>
+      <video 
+        ref={videoRef} 
+        autoPlay 
+        style={{ 
+          width: '100%', 
+          maxWidth: '400px',
+          height: 'auto',
+          aspectRatio: '4/3',
+          backgroundColor: 'black' 
+        }} 
+      />
+      <div className="button-group">
+        <button className="btn btn-primary" onClick={handleTakePicture}>
+          📸 Capture
+        </button>
+        <button className="btn btn-secondary" onClick={handleCancel}>
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import MoodScreen from './components/MoodScreen';
 import CameraScreen from './components/CameraScreen';
 import ProgressScreen from './components/ProgressScreen';
 import ResultScreen from './components/ResultScreen';
+import './styles.css';
 
 function App() {
   return (

@@ -12,15 +12,19 @@ const WelcomeScreen: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Welcome to Moocorn, the intelligent popcorn machine.</h1>
+    <div className="screen-container">
+      <h1>Welcome to Moocorn</h1>
+      <p>The intelligent popcorn machine that creates flavors based on your mood and photo.</p>
       <input
         type="text"
         placeholder="Enter your name"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        onKeyPress={(e) => e.key === 'Enter' && handleNext()}
       />
-      <button onClick={handleNext}>Next</button>
+      <button className="btn btn-primary" onClick={handleNext} disabled={!name.trim()}>
+        Get Started
+      </button>
     </div>
   );
 };

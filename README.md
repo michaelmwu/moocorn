@@ -20,66 +20,55 @@ This project is designed to be a desktop application using Electron, but it can 
 
 ## Installation
 
-### Backend
+1.  **Install `uv` (if you haven't already)**
 
-1.  **Clone the repository**
-
-2.  **Navigate to the `backend` directory**
-
+    We recommend installing `uv` globally. For macOS/Linux, you can typically run:
     ```bash
-    cd backend
+    curl -LsSf https://astral.sh/uv/install.sh | sh
     ```
 
-3.  **Create a virtual environment and install dependencies**
-
+2.  **Install Backend Dependencies**
     ```bash
-    python -m venv venv
-    source venv/bin/activate
-    pip install uv # if you don't have uv installed
-    uv pip install --with-sources . # install from pyproject.toml
+    cd backend
+    uv pip install -e .
+    cd ..
+    ```
+
+3.  **Install Frontend Dependencies**
+    ```bash
+    cd frontend
+    pnpm install
+    cd ..
     ```
 
 4.  **Configure your LLM provider**
 
-    -   **For Local Models (Ollama or LocalAI)**: No API key is needed. Ensure your local LLM server is running. We recommend using [Ollama](https://ollama.ai/) for ease of setup.
-    -   **For OpenAI or OpenRouter**: Copy the `.env.example` file to a new `.env` file in the `backend` directory and add your API key and other settings:
-
-        ```bash
-        cp .env.example .env
-        ```
-        
-        Then, edit the `.env` file:
-        ```
-        LLM_PROVIDER=openai # or openrouter
-        LLM_API_KEY=your_api_key
-        LLM_MODEL=your_model_name
-        ```
-
-### Frontend
-
-1.  **Navigate to the `frontend` directory**
-
+    Copy the `.env.example` file to a new `.env` file and customize it for your setup.
     ```bash
-    cd frontend
-    ```
-
-2.  **Install dependencies using pnpm**
-
-    ```bash
-    pnpm install
+    cp .env.example .env
     ```
 
 ## Running the Application
 
-### Backend
+### Using Docker (Recommended)
+
+This is the simplest way to get started. It will build and run both the frontend and backend with live-reloading.
+
+```bash
+COMPOSE_BAKE=true docker compose watch
+```
+
+### Running Manually
+
+#### Backend
 
 To run the backend server, navigate to the `backend` directory and run:
 
 ```bash
-uv uvicorn main:app --host 0.0.0.0 --port 8000
+uv run uvicorn main:app --host 0.0.0.0 --port 8888
 ```
 
-### Frontend (Web)
+#### Frontend
 
 To run the frontend as a web application, navigate to the `frontend` directory and run:
 
@@ -88,7 +77,3 @@ pnpm dev
 ```
 
 This will start a development server, and you can access the application at `http://localhost:5173`.
-
-### Frontend (Electron)
-
-(Instructions to be added once Electron setup is complete.)

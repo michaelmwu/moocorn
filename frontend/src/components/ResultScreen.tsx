@@ -16,6 +16,7 @@ const ResultScreen: React.FC = () => {
       {result ? (
         <>
           <h2>Flavor: {result.flavor}</h2>
+          <p>Generated Flavor in {result.duration.toFixed(2)} seconds</p>
         </>
       ) : (
         <p>No result found.</p>

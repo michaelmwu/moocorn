@@ -18,6 +18,11 @@ services:
             - __pycache__/
             - .pytest_cache/
             - data/images/
+            - data/sessions.csv
+            - "*.log"
+            - .venv/
+            - "*.pyc"
+            - "**/__pycache__/"
         - action: rebuild
           path: ./backend/pyproject.toml
         - action: rebuild

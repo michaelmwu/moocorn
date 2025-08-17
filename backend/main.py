@@ -100,6 +100,10 @@ async def generate_popcorn(
         raise HTTPException(status_code=500, detail=f"LLM request failed: {suggestion['error']}")
     logging.info(f"LLM suggestion received: {suggestion}")
 
+    end_time = datetime.datetime.now()
+    duration = (end_time - start_time).total_seconds()
+    logging.info(f"Flavor generation took {duration:.2f} seconds.")
+
     # Log the session
     log_session(
         name=name,
@@ -113,6 +117,7 @@ async def generate_popcorn(
         "message": "Popcorn generated successfully!",
         "flavor": suggestion.get("flavor"),
         "description": suggestion.get("description"),
-        "image_analysis": analysis_results
+        "image_analysis": analysis_results,
+        "duration": duration,
     }
 

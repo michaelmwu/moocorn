@@ -8,7 +8,7 @@ else: # localai or openai
     base_url = settings.llm_base_url
 
 client = openai.OpenAI(
-    api_key=settings.llm_api_key,
+    api_key=settings.llm_api_key or "ollama",  # Ollama doesn't need a real API key
     base_url=base_url,
 )
 
@@ -29,13 +29,13 @@ def generate_flavor_suggestion(name: str, mood: str, image_analysis: dict) -> di
         return {"error": "Flavor list is empty or not found."}
 
     # Construct the prompt
-    prompt = f"""You are an intelligent popcorn flavoring machine at Burning Man.
+    prompt = f"""
 Given the user's name: {name},
 mood: {mood},
 image lightness: {image_analysis.get('lightness', 'unknown')},
-dominant colors: {image_analysis.get('dominant_colors', 'unknown')},
+dominant colors: {', '.join(image_analysis.get('dominant_color_names', ['unknown']))},
 
-Generate them a popcorn flavor (a combination of seasonings) with an accompanying short description with a witty and whimsical tone.
+Generate them a popcorn flavor (a combination of seasonings) with an accompanying short (1-2 paragraphs, not too long please!) description with a witty and whimsical tone.
 
 These are the list of flavors available: {', '.join(flavors)}
 """
@@ -44,7 +44,7 @@ These are the list of flavors available: {', '.join(flavors)}
         response = client.chat.completions.create(
             model=settings.llm_model,
             messages=[
-                {"role": "system", "content": "You are a whimsical popcorn flavor generator."},
+                {"role": "system", "content": "You are an whimiscal popcorn flavoring machine at Burning Man."},
                 {"role": "user", "content": prompt},
             ],
             temperature=0.8,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { generatePopcorn } from '../utils/api';
 
@@ -6,9 +6,13 @@ const ProgressScreen: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { name, mood, image } = location.state || {};
+  const hasCalledRef = useRef(false);
 
   useEffect(() => {
     const getPopcornFlavor = async () => {
+      if (hasCalledRef.current) return; // Prevent duplicate calls
+      hasCalledRef.current = true;
+      
       try {
         const result = await generatePopcorn(name, mood, image);
         navigate('/result', { state: { result } });

@@ -33,8 +33,19 @@ const CameraScreen: React.FC = () => {
   const handleTakePicture = () => {
     if (videoRef.current) {
       const canvas = document.createElement('canvas');
-      canvas.width = videoRef.current.videoWidth;
-      canvas.height = videoRef.current.videoHeight;
+      // Get camera resolution from environment variables
+      const maxWidth = parseInt(import.meta.env.VITE_CAMERA_MAX_WIDTH) || 1024;
+      const maxHeight = parseInt(import.meta.env.VITE_CAMERA_MAX_HEIGHT) || 768;
+      const aspectRatio = videoRef.current.videoWidth / videoRef.current.videoHeight;
+      
+      if (aspectRatio > maxWidth / maxHeight) {
+        canvas.width = maxWidth;
+        canvas.height = maxWidth / aspectRatio;
+      } else {
+        canvas.width = maxHeight * aspectRatio;
+        canvas.height = maxHeight;
+      }
+      
       const context = canvas.getContext('2d');
       if (context) {
         context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
@@ -43,7 +54,7 @@ const CameraScreen: React.FC = () => {
             const imageFile = new File([blob], "capture.jpg", { type: "image/jpeg" });
             navigate('/progress', { state: { name, mood, image: imageFile } });
           }
-        }, 'image/jpeg');
+        }, 'image/jpeg', 0.8); // Reduce quality to 80% for smaller file size
       }
     }
   };

@@ -48,6 +48,15 @@ This project is designed to be a desktop application using Electron, but it can 
     cp .env.example .env
     ```
 
+    -   **For Ollama**: No API key is needed. Ensure Ollama is running. The default settings in `.env.example` should work.
+    -   **For OpenAI or OpenRouter**: Edit the `.env` file with your API key and other settings:
+        ```
+        LLM_PROVIDER=openai # or openrouter
+        LLM_API_KEY=your_api_key
+        LLM_MODEL=your_model_name
+        LLM_BASE_URL=https://api.openai.com/v1 # or your OpenRouter URL
+        ```
+
 ## Running the Application
 
 ### Using Docker (Recommended)

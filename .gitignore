@@ -145,3 +145,7 @@ lerna-debug.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# Moocorn specific
+backend/data/sessions.csv
+backend/data/images/

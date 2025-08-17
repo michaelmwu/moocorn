@@ -4,6 +4,8 @@ Moocorn is a generative AI popcorn flavor maker. It takes a user's name, mood, a
 
 This project is designed to be a desktop application using Electron, but it can also be run as a web application.
 
+[Demo video](https://www.dropbox.com/scl/fi/ss49j3jjoszqdlysd1zce/MooCorn-demo.mov?rlkey=ozln7plejs4s3dmh6wqm00l5e&dl=0)
+
 ## Features
 
 -   **Personalized Popcorn Flavors**: Get a unique popcorn flavor based on your name, mood, and a picture.

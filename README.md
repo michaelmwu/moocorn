@@ -8,7 +8,7 @@ This project is designed to be a desktop application using Electron, but it can 
 
 -   **Personalized Popcorn Flavors**: Get a unique popcorn flavor based on your name, mood, and a picture.
 -   **Image Analysis**: Uses OpenCV to analyze the image for color, brightness, and other features.
--   **LLM Integration**: Connects to LocalAI, OpenAI, or OpenRouter to generate creative flavor suggestions.
+-   **LLM Integration**: Connects to a local LLM server using Ollama or LocalAI, or to remote services like OpenAI or OpenRouter.
 -   **Desktop & Web**: Can be run as a desktop application or a web application.
 
 ## Architecture
@@ -16,7 +16,7 @@ This project is designed to be a desktop application using Electron, but it can 
 -   **Frontend**: React (with TypeScript and Vite), packaged with Electron.
 -   **Backend**: Python (with FastAPI and Pydantic).
 -   **Image Processing**: OpenCV.
--   **LLM**: LocalAI, OpenAI, or OpenRouter.
+-   **LLM**: Ollama, LocalAI, OpenAI, or OpenRouter.
 
 ## Installation
 
@@ -41,9 +41,14 @@ This project is designed to be a desktop application using Electron, but it can 
 
 4.  **Configure your LLM provider**
 
-    -   **For LocalAI**: No API key is needed. Ensure your LocalAI server is running.
-    -   **For OpenAI or OpenRouter**: Create a `.env` file in the `backend` directory and add your API key and other settings:
+    -   **For Local Models (Ollama or LocalAI)**: No API key is needed. Ensure your local LLM server is running. We recommend using [Ollama](https://ollama.ai/) for ease of setup.
+    -   **For OpenAI or OpenRouter**: Copy the `.env.example` file to a new `.env` file in the `backend` directory and add your API key and other settings:
 
+        ```bash
+        cp .env.example .env
+        ```
+        
+        Then, edit the `.env` file:
         ```
         LLM_PROVIDER=openai # or openrouter
         LLM_API_KEY=your_api_key

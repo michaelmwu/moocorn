@@ -1,10 +1,11 @@
+from typing import Any
+
 import cv2
 import numpy as np
 
-def bgr_to_color_name(bgr_color):
-    """
-    Convert BGR color values to human-readable color names.
-    """
+
+def bgr_to_color_name(bgr_color: list[int]) -> str:
+    """Convert BGR color values to human-readable color names."""
     b, g, r = bgr_color
     
     # Define color ranges (in RGB for easier understanding)
@@ -59,10 +60,8 @@ def bgr_to_color_name(bgr_color):
     
     return closest_color
 
-def analyze_image(image_path: str) -> dict:
-    """
-    Analyzes an image to extract color and brightness information.
-    """
+def analyze_image(image_path: str) -> dict[str, Any]:
+    """Analyze an image to extract color and brightness information."""
     try:
         # Read the image
         image = cv2.imread(image_path)

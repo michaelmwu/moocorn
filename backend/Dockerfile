@@ -25,8 +25,8 @@ COPY . .
 # Create data directory for images and logs
 RUN mkdir -p data/images
 
-# Expose FastAPI default port
-EXPOSE 8000
+# Expose FastAPI port
+EXPOSE 8888
 
 # Run FastAPI with uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8888", "--reload"]

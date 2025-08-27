@@ -16,15 +16,30 @@ const ResultScreen: React.FC = () => {
     navigate('/');
   };
 
+  var raw_flavor = result.flavor.trim();
+  var newline = raw_flavor.search("\n");
+
+  console.log("newline: " + newline);
+
+  var flavor = newline > 0 ? raw_flavor.substring(0, newline) : raw_flavor;
+  var description = newline > 0 ? raw_flavor.substring(newline+1) : "";
+
+  console.log("raw_flavor: " + raw_flavor);
+  console.log("flavor: " + flavor);
+  console.log("description: " + description);
+
   return (
     <div className="screen-container">
       <h1>🍿 Your Perfect Flavor!</h1>
       {result ? (
         <div className="result-content">
-          <div className="flavor-text">
-            {result.flavor}
+          <div className="flavor-name">
+            {flavor}
           </div>
-          <p style={{ fontSize: '0.9rem', opacity: 0.7, marginTop: '1.5rem' }}>
+          <div className="flavor-description">
+            {description}
+          </div>
+          <p style={{ fontSize: '1.2rem', marginTop: '1.5rem' }}>
             ⚡ Generated in {result.duration?.toFixed(2) || '?'} seconds
           </p>
         </div>

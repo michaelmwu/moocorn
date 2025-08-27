@@ -32,7 +32,7 @@ This project is designed to be a desktop application using Electron, but it can 
 2.  **Install Backend Dependencies**
     ```bash
     cd backend
-    uv pip install -e .
+    uv sync
     cd ..
     ```
 

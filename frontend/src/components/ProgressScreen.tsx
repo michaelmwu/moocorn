@@ -43,7 +43,7 @@ const ProgressScreen: React.FC = () => {
       <h1>Crafting Your Flavor...</h1>
       <p>Analyzing your {mood} mood and photo to create the perfect popcorn experience for you, {name}!</p>
       <div className="spinner"></div>
-      <p style={{ fontSize: '0.9rem', opacity: 0.8, marginTop: '2rem' }}>
+      <p style={{ fontSize: '1rem', opacity: 0.8, marginTop: '2rem' }}>
         ✨ This may take a few moments
       </p>
       <div className="button-group">

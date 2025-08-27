@@ -39,8 +39,8 @@ Given the user's name: {name},
 mood: {mood},
 {image_info},
 
-Generate them a popcorn flavor (a combination of seasonings) with an accompanying short (1 paragraph only, not too long please!) description with a witty and whimsical tone.
-Please avoid adding unnecessary chatter after the the flavor and description.
+Keep response to 300 words max. Generate them a short name of a popcorn flavor, in the next paragraph a bulleted list of ingredients (5 max),
+and the next paragraph an accompanying short description afterwards in a new paragraph with a witty and whimsical tone.
 
 These are the list of flavors available: {', '.join(flavors)}
 """
@@ -49,7 +49,7 @@ These are the list of flavors available: {', '.join(flavors)}
         response = client.chat.completions.create(
             model=settings.llm_model,
             messages=[
-                {"role": "system", "content": "You are an whimiscal popcorn flavoring machine at Burning Man. "},
+                {"role": "system", "content": "You are an whimiscal popcorn flavoring machine at Burning Man."},
                 {"role": "user", "content": prompt},
             ],
             temperature=0.8,

@@ -24,8 +24,8 @@ const MoodScreen: React.FC = () => {
   };
 
   const moodOptions = [
-    'Happy', 'Excited', 'Calm', 'Adventurous', 
-    'Nostalgic', 'Creative', 'Energetic', 'Contemplative'
+    'Muddy', 'High', 'Wet', 'Cozy', 'Steamy',
+    'Adventurous', 'Dusty', 'Energetic', 'Contemplative', 'Hungry'
   ];
 
   const handleMoodSelect = (selectedMood: string) => {

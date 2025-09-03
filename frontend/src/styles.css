@@ -58,7 +58,7 @@ h2 {
 }
 
 p {
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   line-height: 1.6;
   margin-bottom: 1rem;
   color: rgba(255, 255, 255, 0.9);
@@ -200,7 +200,7 @@ video {
 }
 
 .flavor-name {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.95);
   word-break: break-word;
@@ -212,7 +212,7 @@ video {
 }
 
 .flavor-description {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.95);
   word-break: break-word;

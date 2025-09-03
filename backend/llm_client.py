@@ -42,7 +42,7 @@ mood: {mood},
 Keep response to 300 words max. Generate them a short name of a popcorn flavor, in the next paragraph a bulleted list of ingredients (5 max),
 and the next paragraph an accompanying short description afterwards in a new paragraph with a witty and whimsical tone.
 
-These are the list of flavors available: {', '.join(flavors)}
+These are the list of flavors available: {', '.join(flavors)}. Please stick to the listed flavors.
 """
 
     try:

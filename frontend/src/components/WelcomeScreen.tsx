@@ -21,6 +21,7 @@ const WelcomeScreen: React.FC = () => {
         value={name}
         onChange={(e) => setName(e.target.value)}
         onKeyPress={(e) => e.key === 'Enter' && handleNext()}
+        autoFocus
       />
       <button className="btn btn-primary" onClick={handleNext} disabled={!name.trim()}>
         Get Started

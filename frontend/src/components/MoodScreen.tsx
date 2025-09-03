@@ -56,6 +56,7 @@ const MoodScreen: React.FC = () => {
         value={mood}
         onChange={(e) => setMood(e.target.value)}
         onKeyPress={(e) => e.key === 'Enter' && handleNext()}
+        autoFocus
       />
       
       <div className="button-group">

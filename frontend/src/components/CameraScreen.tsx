@@ -37,6 +37,17 @@ const CameraScreen: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        handleTakePicture();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyPress);
+  }, []);
+
   const handleTakePicture = () => {
     if (videoRef.current) {
       const canvas = document.createElement('canvas');
@@ -90,7 +101,7 @@ const CameraScreen: React.FC = () => {
         }} 
       />
       <div className="button-group">
-        <button className="btn btn-primary" onClick={handleTakePicture}>
+        <button className="btn btn-primary" onClick={handleTakePicture} autoFocus>
           📸 Capture
         </button>
         <button className="btn btn-secondary" onClick={handleSkipPhoto}>

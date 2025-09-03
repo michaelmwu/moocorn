@@ -7,6 +7,7 @@ cumin
 chili powder
 smoked salt
 rosemary
+butter powder
 oregano
 thyme
 black pepper
@@ -19,6 +20,10 @@ chocolate syrup
 caramel syrup
 cinnamon
 mushroom bouillon
-
-
-Generate me a short name of a popcorn flavor, in the next paragraph a bulleted list of ingredients (not too many, 5 max), and the next paragraph an accompanying short (1 paragraph only, 300 words max) description afterwards in a new paragraph with a witty and whimsical tone. We have: paprika, garlic powder, onion powder, nutritional yeast, cayenne pepper, cumin, chili powder, smoked salt, rosemary, oregano, thyme, black pepper, smoked paprika, white cheddar powder, nacho cheddar powder, ranch seasoning, powdered sugar, chocolate syrup, caramel syrup, cinnamon, mushroom bouillon
+msg
+togarashi
+maple syrup
+playa dust
+bacon pieces
+chili oil
+sesame oil
